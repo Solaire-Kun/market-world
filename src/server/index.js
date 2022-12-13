@@ -3,48 +3,29 @@ const app = express()
 const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const multer = require('multer');
 require('dotenv/config');
-const server = app.listen(3000);
-
-const WebSocket = require('ws');
-new WebSocket.Server({ server });
 
 // Routes
-//const productsRoute = require('./routes/products');
+const productsRoute = require('./routes/products');
 const loginRoute = require('./routes/login');
 const registerRoute = require('./routes/register');
-//const usersRoute = require('./routes/users');
+const usersRoute = require('./routes/users');
 
 // Middleware
 app.use(express.json());
 app.use(cors());
-//app.use('/add-product', productsRoute);
+app.use(express.static('build'));
+app.use('/products', productsRoute);
 app.use('/login', loginRoute);
 app.use('/register', registerRoute);
-//app.use('/manage-users', usersRoute);
+app.use('/users', usersRoute);
 
-// Multer
-const FileStorage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, './images')
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.originalname)
-    },
-});
-const upload = multer({ storage: FileStorage })
-
-
-app.post('/upload', upload.array('images', 2), (req, res) => {
-    res.json('Images successfully uploaded!').status(201);
-});
-
-const filePath = path.join('public', 'index.html');
-app.get('*', function (request, response){
-    response.sendFile(path.resolve(filePath))
-});
+app.get('*', (req, res) => res.sendFile(path.resolve('build', 'index.html')));
 
 // Connect
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.DB_CONNECTION, () => console.log("Connected!"));
+
+const server = app.listen(3001);
+const WebSocket = require('ws');
+new WebSocket.Server({ server });

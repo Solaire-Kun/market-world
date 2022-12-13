@@ -8,20 +8,32 @@ const register = async (req, res) => {
     if (error) return res.send(error.details[0].message).status(400);
 
     // Check if email exists
-    const { username, email, password } = req.body
+    const { username, email, password, isAdmin } = req.body;
     const emailExist = await User.findOne({ email: req.body.email });
-    if (emailExist) return res.send('Email already exists.').status(400);
+    if (emailExist) return res.json({ error: 'Email already exists.' }).status(400);
 
     // Hash password
     const salt = await bcrypt.genSalt(10);
     bcrypt.hash(password, salt, (err, hash) => {
         if (err) return res.json({ message: 'e ' + err }).status(404);
-        // Register user
-        User.create({
-            username,
-            email,
-            password: hash
-        });
+        // Check admin
+        if (isAdmin === true) {
+            // Register admin user
+            User.create({
+                username,
+                email,
+                password: hash,
+                isAdmin: true
+            });
+        } else {
+            // Register user
+            User.create({
+                username,
+                email,
+                password: hash,
+                isAdmin: false
+            });
+        };
         res.json('User successfully registered!').status(201);
     });
 };

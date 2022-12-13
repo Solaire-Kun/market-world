@@ -11,18 +11,23 @@ const login = async (req, res) => {
     } else {
         // Check if email is correct
         const user = await User.findOne({ email: req.body.email });
-        if (!user) return res.send('Email or password is incorrect.').status(400);
-        console.log('email correct')
+        if (!user) return res.json({ error: 'Email or password is incorrect or does not exist.' }).status(400);
         // Check if password is correct
         const validPassword = await bcrypt.compare(req.body.password, user.password);
-        if (!validPassword) return res.send('Email or password is incorrect.').status(400);
-        console.log('password correct')
-        // Generate token
-        console.log('before token')
-        const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
-        //localStorage.setItem('auth-token', token)
-        console.log('after token')
-        res.header('auth-token', token).json('Logged in! ' + token).status(200);
+        if (!validPassword) return res.json({ error: 'Email or password is incorrect or does not exist.' }).status(400);
+        // Is user admin?
+        const username = user.username;
+        const id = user._id;
+        if (user.isAdmin === true) {
+            // Generate token
+            const admin = true;
+            const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
+            res.json({ token, admin, username, id }).status(200);
+        } else {
+            // Generate token
+            const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
+            res.json({ token, username, id }).status(200);
+        };
     };
 };
 

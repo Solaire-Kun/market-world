@@ -4,7 +4,8 @@ const registerValidation = (data) => {
     const schema = Joi.object({
         username: Joi.string(),
         email: Joi.string().email(),
-        password: Joi.string(),
+        password: Joi.string().min(6),
+        isAdmin: Joi.boolean(),
     });
     return schema.validate(data);
 };
@@ -12,10 +13,12 @@ const registerValidation = (data) => {
 const loginValidation = (data) => {
     const schema = Joi.object({
         email: Joi.string().email(),
-        password: Joi.string(),
+        password: Joi.string().min(6),
     });
     return schema.validate(data);
 };
 
-module.exports.registerValidation = registerValidation;
-module.exports.loginValidation = loginValidation;
+module.exports = {
+    registerValidation,
+    loginValidation
+};
