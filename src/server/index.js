@@ -15,14 +15,11 @@ const ticketsRoute = require('./routes/tickets');
 // Middleware
 app.use(express.json());
 app.use(cors());
-app.use(express.static('build'));
 app.use('/products', productsRoute);
 app.use('/login', loginRoute);
 app.use('/register', registerRoute);
 app.use('/users', usersRoute);
 app.use('/support', ticketsRoute);
-
-app.get('*', (req, res) => res.sendFile(path.resolve('build', 'index.html')));
 
 // Connect
 mongoose.set('strictQuery', false);
