@@ -15,14 +15,11 @@ const ticketsRoute = require('./routes/tickets');
 // Middleware
 app.use(express.json());
 app.use(cors());
-app.use(express.static('public'))
 app.use('/products', productsRoute);
 app.use('/login', loginRoute);
 app.use('/register', registerRoute);
 app.use('/users', usersRoute);
 app.use('/support', ticketsRoute);
-
-app.get('*', (req, res) => res.sendFile(path.resolve('public', 'index.html')));
 
 // Connect
 mongoose.set('strictQuery', false);
@@ -31,5 +28,3 @@ mongoose.connect(process.env.DB_CONNECTION, () => console.log("Connected!"));
 const server = app.listen(3000);
 const WebSocket = require('ws');
 new WebSocket.Server({ server });
-
-module.exports = app
