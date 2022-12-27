@@ -1,5 +1,6 @@
 const express = require('express');
-const app = express()
+const app = express();
+const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv/config');
@@ -14,11 +15,14 @@ const ticketsRoute = require('./routes/tickets');
 // Middleware
 app.use(express.json());
 app.use(cors());
+app.use(express.static('public'))
 app.use('/products', productsRoute);
 app.use('/login', loginRoute);
 app.use('/register', registerRoute);
 app.use('/users', usersRoute);
 app.use('/support', ticketsRoute);
+
+app.get('*', (req, res) => res.sendFile(path.resolve('public', 'index.html')));
 
 // Connect
 mongoose.set('strictQuery', false);
