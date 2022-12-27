@@ -24,6 +24,8 @@ app.use('/support', ticketsRoute);
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.DB_CONNECTION, () => console.log("Connected!"));
 
-const server = app.listen(3001);
+const server = app.listen(3000);
 const WebSocket = require('ws');
 new WebSocket.Server({ server });
+
+module.exports = app
