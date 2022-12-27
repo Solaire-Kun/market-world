@@ -7,7 +7,7 @@ const user_get_all = async (req, res) => {
         const usersList = await User.find();
         res.json(usersList).status(200);
     } catch (err) {
-        res.json({ message: err }).status(404);
+        res.json({ error: err }).status(404);
     };
 };
 
@@ -20,7 +20,7 @@ const user_patch = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const { password } = req.body
         bcrypt.hash(password, salt, (err, hash) => {
-            if (err) return res.json({ message: 'e ' + err }).status(404);
+            if (err) return res.json({ error: err }).status(404);
             // Update user
             const update = User.updateOne({ _id: req.body.id }, {
                 $set: {
@@ -35,7 +35,7 @@ const user_patch = async (req, res) => {
         });
 
     } catch (err) {
-        res.json({ message: err }).status(404);
+        res.json({ error: err }).status(404);
     };
 };
 
@@ -45,14 +45,12 @@ const user_delete = async (req, res) => {
         const user = await User.findById(req.params.id);
         if (!user) {
             return res.json({ error: 'User not found' }).status(404);
-
-        } else {
-            user.deleteOne();
-            res.json('User successfully deleted!').status(202);
         };
+        user.deleteOne();
+        res.json('User successfully deleted!').status(202);
 
     } catch (err) {
-        res.json({ message: err }).status(404);
+        res.json({ error: err }).status(404);
     };
 };
 

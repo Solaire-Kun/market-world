@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import axios from '../../server/api/axios';
+import axios from '../../api/axios';
 import { Link } from "react-router-dom";
 import Loader from '../../Components/Loader/Loader';
 import { AuthContext } from '../../Context/AuthContext';

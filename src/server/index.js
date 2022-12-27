@@ -10,6 +10,7 @@ const productsRoute = require('./routes/products');
 const loginRoute = require('./routes/login');
 const registerRoute = require('./routes/register');
 const usersRoute = require('./routes/users');
+const ticketsRoute = require('./routes/tickets');
 
 // Middleware
 app.use(express.json());
@@ -19,6 +20,7 @@ app.use('/products', productsRoute);
 app.use('/login', loginRoute);
 app.use('/register', registerRoute);
 app.use('/users', usersRoute);
+app.use('/support', ticketsRoute);
 
 app.get('*', (req, res) => res.sendFile(path.resolve('build', 'index.html')));
 

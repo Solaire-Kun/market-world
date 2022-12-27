@@ -15,7 +15,7 @@ const register = async (req, res) => {
     // Hash password
     const salt = await bcrypt.genSalt(10);
     bcrypt.hash(password, salt, (err, hash) => {
-        if (err) return res.json({ message: 'e ' + err }).status(404);
+        if (err) return res.json({ error: 'e ' + err }).status(404);
         // Check admin
         if (isAdmin === true) {
             // Register admin user

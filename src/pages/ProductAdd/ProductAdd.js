@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import axios from '../../server/api/axios';
+import axios from '../../api/axios';
 import { AuthContext } from '../../Context/AuthContext';
 
 function ProductAdd() {

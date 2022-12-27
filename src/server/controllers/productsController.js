@@ -7,7 +7,7 @@ const product_get_all = async (req, res) => {
         res.json(productsList).status(200);
 
     } catch (err) {
-        res.json({ message: err }).status(404);
+        res.json({ error: err }).status(404);
     };
 };
 
@@ -23,7 +23,7 @@ const product_post = async (req, res) => {
         res.json(createProduct).status(201);
 
     } catch (err) {
-        res.json({ message: err }).status(404);
+        res.json({ error: err }).status(404);
     };
 };
 
@@ -50,14 +50,12 @@ const product_delete = async (req, res) => {
         const product = await Product.findById(req.params.id);
         if (!product) {
             return res.json({ error: 'Product not found' }).status(404);
-
-        } else {
-            product.deleteOne();
-            res.json('Product successfully deleted!').status(202);
         };
+        product.deleteOne();
+        res.json('Product successfully deleted!').status(202);
 
     } catch (err) {
-        res.json({ message: err }).status(404);
+        res.json({ error: err }).status(404);
     };
 };
 
