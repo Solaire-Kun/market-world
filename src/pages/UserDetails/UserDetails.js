@@ -44,7 +44,7 @@ function UserDetails() {
     return (
         <div className="d-flex flex-column container-fluid justify-content-center text-justify align-items-center">
             <form onSubmit={updateUser}>
-                <img className="rounded mx-auto mb-2 mt-2 border-dark img-thumbnail bg-dark" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" width="300" height="300" alt="" />
+                <img className="rounded mx-auto mb-2 mt-2 border-dark img-fluid bg-dark" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" width="300" height="300" alt="" />
                 <div className="form-group mb-2">
                     <label htmlFor="username">New Username</label>
                     <input required type="text" className="form-control" id="username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder={state.username}></input>

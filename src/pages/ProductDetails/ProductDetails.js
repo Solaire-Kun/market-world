@@ -39,7 +39,7 @@ function ProductDetails() {
             {auth && ((
                 <div className="d-flex flex-column container-fluid justify-content-center text-justify align-items-center">
                     <form onSubmit={updateProduct}>
-                        <img className="rounded mx-auto mb-2 mt-2 border-dark img-thumbnail bg-dark" src="https://i.imgur.com/Bi6EAZQ.png" width="300" height="300" alt="" />
+                        <img className="rounded mx-auto mb-2 mt-2 border-dark img-fluid bg-dark" src="https://i.imgur.com/Bi6EAZQ.png" width="300" height="300" alt="" />
                         <div className="form-group mb-2">
                             <label htmlFor="name">New Name</label>
                             <input required type="text" className="form-control" id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder={state.name}></input>

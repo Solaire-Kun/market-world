@@ -40,7 +40,7 @@ function UsersList() {
               <div className="container-fluid row row-cols-md-5">
                 {users.map((user) => (
                   <div key={user._id} className="col m-3 rounded">
-                    <img className="d-flex rounded mx-auto mt-2 img-thumbnail border-dark bg-dark" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" width="300" height="300" alt="" />
+                    <img className="d-flex rounded mx-auto mt-2 img-fluid border-dark bg-dark" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" width="300" height="300" alt="" />
                     <div className="d-flex flex-column text-center justify-content-center">
                       <div className="card-body d-flex flex-column text-center justify-content-center">
                         <li className="list-group-item">Username: <b>{user.username}</b></li>
