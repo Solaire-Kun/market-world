@@ -1,7 +1,6 @@
-import http from "http";
-
 const express = require('express');
 const app = express();
+const http = require('http');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv/config');
