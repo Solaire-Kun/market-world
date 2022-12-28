@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv/config');
@@ -23,7 +22,7 @@ app.use('/support', ticketsRoute);
 
 // Connect
 mongoose.set('strictQuery', false);
-mongoose.connect(process.env.DB_CONNECTION, () => console.log("Connected!"));
+mongoose.connect(process.env.MONGODB_URI, () => console.log("Connected!"));
 
 const server = app.listen(3000);
 const WebSocket = require('ws');
