@@ -1,3 +1,5 @@
+import http from "http";
+
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -21,9 +23,11 @@ app.use('/users', usersRoute);
 app.use('/support', ticketsRoute);
 
 // Connect
+const server = http.createServer(app);
+
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.MONGODB_URI, () => console.log("Connected!"));
 
-const server = app.listen(3000);
+server.listen(3000);
 const WebSocket = require('ws');
 new WebSocket.Server({ server });
