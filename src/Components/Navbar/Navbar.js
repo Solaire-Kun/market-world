@@ -6,7 +6,7 @@ function Navbar() {
   const { auth, setAuth } = useContext(AuthContext);
   const { admin, setAdmin } = useContext(AdminContext);
 
-  const handleLogout = async (e) => {
+  const handleLogout = async () => {
     sessionStorage.clear();
     setAuth(false);
     setAdmin(false);

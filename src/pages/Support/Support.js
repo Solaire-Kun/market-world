@@ -8,8 +8,9 @@ function Support() {
 
     const navigate = useNavigate();
 
-    const handleSubmit = async () => {
-        const res = await axios.patch('/support', { title, description });
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const res = await axios.post('/support', { title, description });
         if (res.data.error) return alert(res.data.error);
         alert('Successfully submitted!');
         navigate('/');
